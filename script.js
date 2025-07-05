@@ -4,6 +4,14 @@ let score = JSON.parse(localStorage.getItem('score')) || {
   ties: 0
 };
 
+
+
+updateScoreValue();
+
+
+
+
+
 function playGame(playerMove) {
   const computerMove = pickComputerMove();
 
@@ -11,16 +19,16 @@ function playGame(playerMove) {
 
   if (playerMove === 'scissors') {
     result = computerMove === 'rock' ? 'You lose.'
-          : computerMove === 'paper' ? 'You win.'
-          : 'Tie.';
+      : computerMove === 'paper' ? 'You win.'
+        : 'Tie.';
   } else if (playerMove === 'paper') {
     result = computerMove === 'rock' ? 'You win.'
-          : computerMove === 'paper' ? 'Tie.'
-          : 'You lose.';
+      : computerMove === 'paper' ? 'Tie.'
+        : 'You lose.';
   } else if (playerMove === 'rock') {
     result = computerMove === 'rock' ? 'Tie.'
-          : computerMove === 'paper' ? 'You lose.'
-          : 'You win.';
+      : computerMove === 'paper' ? 'You lose.'
+        : 'You win.';
   }
 
   if (result === 'You win.') {
@@ -32,10 +40,38 @@ function playGame(playerMove) {
   }
 
   localStorage.setItem('score', JSON.stringify(score));
+  showMove(playerMove, computerMove);
+  showResult(result);
+  updateScoreValue();
 
-  alert(`You picked ${playerMove}. Computer picked ${computerMove}. ${result}
-Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
+
+  //   alert(`You picked ${playerMove}. Computer picked ${computerMove}. ${result}
+  // Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
 }
+function updateScoreValue() {
+  document.querySelector('.js-score').innerHTML = 
+  `Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`;
+
+}
+
+function showMove(p, c) {
+  
+  document.querySelector('.js-move').innerHTML =
+    `You ${p} - ${c} Computer`
+
+}
+
+
+
+function showResult(res) {
+  
+  document.querySelector('.js-result').innerHTML = res;
+
+}
+
+
+
+
 
 function resetScore() {
   score.wins = 0;
@@ -43,6 +79,7 @@ function resetScore() {
   score.ties = 0;
   localStorage.removeItem('score');
   alert('Score reset.');
+  
 }
 
 function pickComputerMove() {
