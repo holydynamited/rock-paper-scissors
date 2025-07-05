@@ -1,0 +1,54 @@
+let score = JSON.parse(localStorage.getItem('score')) || {
+  wins: 0,
+  losses: 0,
+  ties: 0
+};
+
+function playGame(playerMove) {
+  const computerMove = pickComputerMove();
+
+  let result = '';
+
+  if (playerMove === 'scissors') {
+    result = computerMove === 'rock' ? 'You lose.'
+          : computerMove === 'paper' ? 'You win.'
+          : 'Tie.';
+  } else if (playerMove === 'paper') {
+    result = computerMove === 'rock' ? 'You win.'
+          : computerMove === 'paper' ? 'Tie.'
+          : 'You lose.';
+  } else if (playerMove === 'rock') {
+    result = computerMove === 'rock' ? 'Tie.'
+          : computerMove === 'paper' ? 'You lose.'
+          : 'You win.';
+  }
+
+  if (result === 'You win.') {
+    score.wins += 1;
+  } else if (result === 'You lose.') {
+    score.losses += 1;
+  } else {
+    score.ties += 1;
+  }
+
+  localStorage.setItem('score', JSON.stringify(score));
+
+  alert(`You picked ${playerMove}. Computer picked ${computerMove}. ${result}
+Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
+}
+
+function resetScore() {
+  score.wins = 0;
+  score.losses = 0;
+  score.ties = 0;
+  localStorage.removeItem('score');
+  alert('Score reset.');
+}
+
+function pickComputerMove() {
+  const randomNumber = Math.random();
+
+  if (randomNumber < 1 / 3) return 'rock';
+  else if (randomNumber < 2 / 3) return 'paper';
+  else return 'scissors';
+}
