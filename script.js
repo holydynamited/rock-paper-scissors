@@ -8,6 +8,12 @@ let score = JSON.parse(localStorage.getItem('score')) || {
 
 updateScoreValue();
 
+const emoji = {
+  rock: '✊',
+  paper: '🖐',
+  scissors: '✌'
+};
+
 
 
 
@@ -44,10 +50,8 @@ function playGame(playerMove) {
   showResult(result);
   updateScoreValue();
 
-
-  //   alert(`You picked ${playerMove}. Computer picked ${computerMove}. ${result}
-  // Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
 }
+
 function updateScoreValue() {
   document.querySelector('.js-score').innerHTML = 
   `Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`;
@@ -57,7 +61,7 @@ function updateScoreValue() {
 function showMove(p, c) {
   
   document.querySelector('.js-move').innerHTML =
-    `You ${p} - ${c} Computer`
+    `You ${emoji[p]} - ${emoji[c]} Computer`
 
 }
 
@@ -78,7 +82,7 @@ function resetScore() {
   score.losses = 0;
   score.ties = 0;
   localStorage.removeItem('score');
-  alert('Score reset.');
+  
   
 }
 
