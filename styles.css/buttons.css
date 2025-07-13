@@ -12,7 +12,8 @@
   cursor: pointer;
 }
 
-.js-reset-button{
+.js-reset-button,
+.js-auto-play-button{
   padding: 10px;
   cursor: pointer;
 }
